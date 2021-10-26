@@ -2,8 +2,6 @@
 ; Empiezo con los vectores de interrupción
 .ORG 0x0000
 	jmp		start		;dirección de comienzo (vector de reset)  
-.ORG 0x0008 
-	jmp		_btn_int	;salto atención a rutina de comparación A del timer 0
 .ORG 0x001C 
 	jmp		_tmr0_int	;salto atención a rutina de comparación A del timer 0
 
@@ -33,14 +31,6 @@ start:
 	out		OCR0A,	r16			;comparo con 125
 	ldi		r16,	0b00000010	
 	sts		TIMSK0,	r16			;habilito la interrupción (falta habilitar global)
-
-;-------------------------------------------------------------------------------------
-
-;Configuro el btn y su interrupcion.
-	LDI r16, 0b00000010
-	STS PCICR, r16 ;habilito el PCIN1
-	LDI r16, 0b00001110 
-	STS PCMSK1, r16 ;habilito la interrupcion correspondiente a los botones 9, 10, 11
 
 ;-------------------------------------------------------------------------------------
 ;Inicializo algunos registros que voy a usar como variables.
